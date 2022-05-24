@@ -1,0 +1,112 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-back-button icon="close-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title text-center> Track Order </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-button
+        [color]="bgColorUpcome"
+        expand="full"
+        (click)="showUpcoming()"
+      >
+        <div text-center>
+          <ion-icon name="car"></ion-icon>
+          <ion-label> Upcoming </ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+
+    <ion-col>
+      <ion-button
+        [color]="bgColorHistory"
+        expand="full"
+        (click)="showHistory()"
+      >
+        <div text-center>
+          <ion-icon name="time"></ion-icon>
+          <ion-label> History </ion-label>
+        </div>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-list *ngIf="isUpcoming">
+    <div *ngFor="let order of upcomingOrders">
+      <ion-card>
+        <ion-card-content>
+          <div style="text-align: center">
+            <ion-text><b>{{order.value.restaurant_name}}</b></ion-text
+            >:
+            <ion-col><ion-label>{{order.value.meal_type}}</ion-label></ion-col>
+          </div>
+          <ion-item *ngFor="let item of order.value.items">
+            <!-- <ion-col><img src="{{item.image}}" alt=""/></ion-col> -->
+            <ion-row style="width: 100%">
+              <ion-col size="10"
+                ><ion-label
+                  ><b>{{item.meal_name.toLowerCase()}}</b></ion-label
+                ></ion-col
+              >
+              <ion-col size="2"
+                ><ion-label>{{item.quantity}}</ion-label></ion-col
+              >
+
+              <!-- <ion-col size="3"><ion-button size="small" color="light">Cancel</ion-button></ion-col> -->
+            </ion-row>
+          </ion-item>
+
+          <ion-row style="width: 100%; padding: 10px">
+            <ion-col size="4"
+              ><ion-label
+                >Total: <br />${{order.value.total}}</ion-label
+              ></ion-col
+            >
+            <ion-col size="4"
+              ><ion-label
+                >Loc.: <br />{{order.value.location}}</ion-label
+              ></ion-col
+            >
+            <ion-col size="4"
+              >Status:<br /><ion-label
+                color="{{order.value.delivered ? 'success': 'warning'}}"
+                >{{order.value.delivered ? 'Picking up!' :
+                'Delivering..'}}</ion-label
+              ></ion-col
+            >
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ion-list>
+
+  <div *ngIf="!isUpcoming">
+    <ion-list *ngFor="let date of dates">
+      <ion-item>{{date}}</ion-item>
+      <div *ngFor="let item of history">
+        <div *ngIf="date===item.date">
+          <ion-card>
+            <ion-card-content>
+              <ion-row>
+                <ion-col><img src="{{item.image}}" alt="" /></ion-col>
+                <ion-col>
+                  <div><b>{{item.name}}</b></div>
+                  <br />
+                  <h5>{{item.restaurant}}</h5>
+                  <br />
+                  <h5>{{item.subtotal}}</h5>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+    </ion-list>
+    Coming soon
+  </div>
+</ion-content>

@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title text-center> Profile </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="5">
+      <ion-avatar>
+        <img id="avatar-img" src="/assets/user_avatar1.gif" />
+      </ion-avatar>
+    </ion-col>
+    <ion-col size="7">
+      <br />
+      <div><h3>{{ username }}</h3></div>
+      <div>{{ email }}</div>
+    </ion-col>
+  </ion-row>
+
+  <ion-list>
+    <ion-item
+      *ngFor="let item of profile_items"
+      [routerLink]="item.link !== null ? [item.link] : null"
+    >
+      <ion-icon name="{{item.icon}}"></ion-icon>
+      <ion-label>{{item.label}}</ion-label>
+    </ion-item>
+    <ion-item [routerLink]="['/signin']" (click)="tryLogout()">
+      <ion-icon name="log-out"></ion-icon>
+      <ion-label>Sign out</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Little Asia </ion-title>
+
+    <ion-button
+      fill="clear"
+      [routerLink]="['/restaurant-edit-meal']"
+      float-right=""
+    >
+      <ion-icon
+        size="large"
+        ios="ios-add-circle-outline"
+        md="md-add-circle"
+      ></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ng-container *ngIf="!mealsGrid || mealsGrid.length === 0">
+      <div *ngFor="let n of [0,1,2]" padding>
+        <ion-skeleton-text></ion-skeleton-text>
+        <p>
+          <ion-skeleton-text class="fake-skeleton"></ion-skeleton-text>
+        </p>
+      </div>
+    </ng-container>
+  </ion-list>
+
+  <ion-grid>
+    <ion-row *ngFor="let row of mealsGrid">
+      <ion-col *ngFor="let meal of row">
+        <ion-card *ngIf="meal.name">
+          <img [src]="'/assets/food1.png'" alt="" />
+          <ion-row>
+            <ion-card-subtitle style="padding-top: 10px"
+              >{{ meal.name }}</ion-card-subtitle
+            >
+          </ion-row>
+          <ion-row style="margin-bottom: 8px">
+            <div class="price">${{ meal.price }}</div>
+            <button
+              class="btn"
+              id="edit"
+              [routerLink]="['/restaurant-edit-meal', meal.id]"
+            >
+              Edit
+            </button>
+            <button class="btn" id="delete" (click)="deleteMeal(meal.id)">
+              Delete
+            </button>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

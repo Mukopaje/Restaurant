@@ -1,0 +1,54 @@
+<ion-content padding>
+<ion-card>
+<ion-card-header>
+  <ion-card-title>Welcome</ion-card-title>
+  <ion-card-subtitle>Sign in to continue</ion-card-subtitle>
+</ion-card-header>
+  <ion-row>
+    <ion-text class="ion-padding-start" color="danger" id="privacyAgreement">
+      Privacy Agreement: What we collect: 1. email address 2. username 3. password 4. location you select when put the order, 4. order content.
+      What we use with your data: all the data that we collect above are for making the orders, and picking up the orders.
+      What you can do with your data: You can edit your profile. You can also contact us to remove all the data that we collected of you.
+      You should confirm that you agree with this Privacy Agreement before any further steps.
+    </ion-text>
+  </ion-row>
+<ion-row><ion-text class="ion-padding-start" color="danger" id="errorMessage"><h5>{{ errorMessage }}</h5></ion-text></ion-row>
+<ion-card-content>
+  <form [formGroup]="validations_form"  (ngSubmit)="tryLogin(validations_form.value)">
+    <ion-list>
+      <ion-item lines="none">
+        <ion-button slot="end" fill="clear" [routerLink]="['/signup']" size="large" color="success">Sign Up</ion-button>
+      </ion-item>
+
+      <ion-item>
+        <ion-col>
+          <ion-row>
+            <ion-label color="dark">Email</ion-label>
+          </ion-row>
+          <ion-row>
+            <ion-input type="email" formControlName="email"></ion-input>
+          </ion-row>
+        </ion-col>
+      </ion-item>
+
+      <ion-item>
+        <ion-col>
+          <ion-row>
+            <ion-label color="dark">Password</ion-label>
+          </ion-row>
+          <ion-row>
+            <ion-input type="password" formControlName="password"></ion-input>
+          </ion-row>
+        </ion-col>
+      </ion-item>
+    </ion-list>
+    <ion-button type="submit" class="ion-margin-top ion-padding-start ion-padding-end" expand="full" style="--background: #59C172;" [disabled]="!validations_form.valid">Sign In</ion-button>
+  </form>
+</ion-card-content>
+</ion-card>
+<br>
+<ion-list>
+  <ion-button expand="full" color="light">Sign in with Facebook</ion-button>
+  <ion-button expand="full" color="light">Sign in with Google</ion-button>
+</ion-list>
+</ion-content>
